@@ -28,7 +28,7 @@ create table baiviet(
 	foreign key (ma_tloai) references theloai(ma_tloai),
     foreign key (ma_tgia) references tacgia(ma_tgia)
 );
-CREATE TABLE Users (
+CREATE TABLE users (
     user_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
