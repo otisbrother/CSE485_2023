@@ -4,19 +4,19 @@
 
 -- Tao bang Tacgia
 create table tacgia(
-	ma_tgia int unsigned primary key not null auto_increment,
+    ma_tgia int unsigned primary key not null auto_increment,
     ten_tgia varchar(100) not null,
     hinh_tgia varchar(100)
 );
 -- Tao bang Theloai
 create table theloai(
-	ma_tloai int unsigned not null primary key auto_increment,
+    ma_tloai int unsigned not null primary key auto_increment,
     ten_tloai varchar(50) not null
 );
 
 -- Tao bang Baiviet
 create table baiviet(
-	ma_bviet int unsigned not null primary key auto_increment,
+    ma_bviet int unsigned not null primary key auto_increment,
     tieude varchar(200) not null,
     ten_bhat varchar(100) not null,
     ma_tloai int unsigned not null,
@@ -25,7 +25,7 @@ create table baiviet(
     ma_tgia int unsigned not null,
     ngayviet datetime not null default now(),
     hinhanh varchar(200),
-	foreign key (ma_tloai) references theloai(ma_tloai),
+    foreign key (ma_tloai) references theloai(ma_tloai),
     foreign key (ma_tgia) references tacgia(ma_tgia)
 );
 CREATE TABLE users (
