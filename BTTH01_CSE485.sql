@@ -1,6 +1,5 @@
-﻿-- create database BTTH01_CSE485;
-
--- use BTTH01_CSE485;
+﻿create database BTTH01_CSE485;
+use BTTH01_CSE485;
 
 -- Tao bang Tacgia
 create table tacgia(
