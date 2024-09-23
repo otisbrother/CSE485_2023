@@ -89,17 +89,17 @@ $article = $result->fetch_assoc();
 
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblArticleImage">Thể loại</span>
-                        <input type="text" class="form-control" name="hinhanh" value="<?php echo $article['hinhanh']; ?>">
+                        <input type="text" class="form-control" name="hinhanh" value="<?php echo $article['ma_tloai']; ?>">
                     </div>
                     
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblArticleImage">Tác giả</span>
-                        <input type="text" class="form-control" name="hinhanh" value="<?php echo $article['hinhanh']; ?>">
+                        <input type="text" class="form-control" name="hinhanh" value="<?php echo $article['ma_tgia']; ?>">
                     </div>
                     
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblArticleImage">Ngày viết</span>
-                        <input type="text" class="form-control" name="hinhanh" value="<?php echo $article['hinhanh']; ?>">
+                        <input type="text" class="form-control" name="hinhanh" value="<?php echo $article['ngayviet']; ?>">
                     </div>
 
                     <div class="form-group float-end">
