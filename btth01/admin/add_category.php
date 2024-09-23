@@ -65,6 +65,10 @@ if (isset($_POST['add_category'])) {
                         <span class="input-group-text" id="lblCatName">Tên thể loại</span>
                         <input type="text" class="form-control" name="ten_tloai" require>
                     </div>
+                    <div class="input-group mt-3 mb-3">
+                        <span class="input-group-text" id="lblCatName">Mã thể loại</span>
+                        <input type="number" class="form-control" name="ma_tloai" require>
+                    </div>
 
                     
                     <div class="form-group  float-end ">
