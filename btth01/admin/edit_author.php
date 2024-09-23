@@ -81,11 +81,10 @@ $author = $result->fetch_assoc();
                         <input type="text" class="form-control" name="txtCatName" value = "Nhạc trữ tình">
                     </div>
 
-                    <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text" id="lblCatName">hình tác giả</span>
-                        <input type="text" class="form-control" name="txtCatName" value = "Nhạc trữ tình">
-                    </div>
-
+                             <form action="upload.php" method="POST" enctype="multipart/form-data">
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="lblCatName">Hình tác giả</span>
+       
                     <div class="form-group  float-end ">
                         <input type="submit" value="Lưu lại" class="btn btn-success">
                         <a href="category.php" class="btn btn-warning ">Quay lại</a>
