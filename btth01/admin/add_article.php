@@ -3,15 +3,16 @@ include '../db.php'; // Kết nối đến cơ sở dữ liệu
 
 // Xử lý khi người dùng submit form thêm bài viết
 if (isset($_POST['add_article'])) {
+   $ma_bviet = $_POST['ma_bviet'];
     $tieude = $_POST['tieude'];
-    $noidung = $_POST['noidung'];
-    $hinhanh = $_POST['hinhanh'];
-    $ma_tgia = $_POST['ma_tgia'];
+    $ten_bhat = $_POST['ten_bhat'];
     $ma_tloai = $_POST['ma_tloai'];
+    $ma_tgia = $_POST['ma_tgia']; 
+    $ngayviet = $_POST['ngayviet'];
     
     // Câu lệnh INSERT để thêm mới bài viết
-    $sql = "INSERT INTO baiviet (tieude, noidung, hinhanh, ma_tgia, ma_tloai, ngayviet) 
-            VALUES ('$tieude', '$noidung', '$hinhanh', $ma_tgia, $ma_tloai, NOW())";
+   $sql = "INSERT INTO baiviet (ma_bviet, tieude,ten_bhat, ma_tloai, ma_tgia, ngayviet) 
+            VALUES ('$ma_bviet', '$tieude', '$ten_bhat', $ma_tloai, $ma_tgia, NOW())";
     
     if ($conn->query($sql) === TRUE) {
         header('Location: article.php'); // Chuyển hướng về trang danh sách bài viết
@@ -47,30 +48,29 @@ if (isset($_POST['add_article'])) {
                 <h3 class="text-center text-uppercase fw-bold">Thêm mới bài viết</h3>
                 <form action="add_article.php" method="post">
                     <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text">Tiêu đề bài viết</span>
+                        <span class="input-group-text">Tiêu đề</span>
                         <input type="text" class="form-control" name="tieude" required>
                     </div>
 
-                    <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text">Nội dung</span>
-                        <textarea class="form-control" name="noidung" required></textarea>
+                  <div class="input-group mt-3 mb-3">
+                        <span class="input-group-text">Tên bài hát</span>
+                        <textarea class="form-control" name="ten_bhat" required></textarea>
                     </div>
 
                     <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text">Hình ảnh</span>
-                        <input type="text" class="form-control" name="hinhanh">
+                        <span class="input-group-text">Thể loại</span>
+                        <input type="text" class="form-control" name="ma_tloai">
                     </div>
 
                     <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text">Mã tác giả</span>
+                        <span class="input-group-text">Tác giả</span>
                         <input type="number" class="form-control" name="ma_tgia" required>
                     </div>
 
                     <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text">Mã thể loại</span>
-                        <input type="number" class="form-control" name="ma_tloai" required>
+                        <span class="input-group-text">Ngày viết</span>
+                        <input type="number" class="form-control" name="ngayviet" required>
                     </div>
-
                     <div class="form-group float-end">
                         <input type="submit" name="add_article" value="Thêm mới" class="btn btn-success">
                         <a href="article.php" class="btn btn-warning">Quay lại</a>
