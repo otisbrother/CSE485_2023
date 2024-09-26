@@ -1,39 +1,51 @@
 <?php
+// Kết nối cơ sở dữ liệu
 include '../db.php';
-$ma_tgia = $_GET['id']; // Lấy ID tác giả từ URL
 
-// Xử lý khi người dùng submit form sửa thông tin tác giả
-if (isset($_POST['edit_author'])) {
-    $ten_tgia = $_POST['ten_tgia'];
-    $hinh_tgia = $_POST['hinh_tgia']; // Trường hình tác giả
-    // Câu lệnh UPDATE để cập nhật thông tin tác giả
-    $sql = "UPDATE tacgia SET ten_tgia='$ten_tgia', hinh_tgia='$hinh_tgia' WHERE ma_tgia=$ma_tgia";
+// Kiểm tra xem có ID được truyền vào không
+if (isset($_GET['id'])) {
+    $id = (int)$_GET['id'];
+    
+    // Lấy thông tin tác giả hiện tại
+    $result = $conn->query("SELECT * FROM tacgia WHERE ma_tgia = $id");
+    $author = $result->fetch_assoc();
+}
+
+// Kiểm tra nếu không tìm thấy tác giả
+if (!$author) {
+    echo "Tác giả không tồn tại.";
+    exit();
+}
+
+// Xử lý cập nhật thông tin tác giả
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    
+    $name = $conn->real_escape_string($_POST['ten_tgia']);
+    $image = $conn->real_escape_string($_POST['hinh_tgia']);
+
+    // Cập nhật thông tin tác giả
+    $sql = "UPDATE tacgia SET ten_tgia = '$name', hinh_tgia = '$image' WHERE ma_tgia = $id";
+
     if ($conn->query($sql) === TRUE) {
-        header('Location: author.php'); // Chuyển hướng về trang danh sách tác giả
+        header("Location: author.php");
         exit();
     } else {
         echo "Lỗi: " . $conn->error;
     }
 }
-
-// Truy vấn lấy thông tin tác giả dựa vào ID
-$sql = "SELECT * FROM tacgia WHERE ma_tgia=$ma_tgia";
-$result = $conn->query($sql);
-$author = $result->fetch_assoc();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music for Life</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="css/style_login.css">
+    <title>Sửa thông tin tác giả</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <header>
+<header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary shadow p-3 bg-white rounded">
             <div class="container-fluid">
                 <div class="h3">
@@ -63,42 +75,40 @@ $author = $result->fetch_assoc();
                 </div>
             </div>
         </nav>
-
     </header>
+
     <main class="container mt-5 mb-5">
-        <!-- <h3 class="text-center text-uppercase mb-3 text-primary">CẢM NHẬN VỀ BÀI HÁT</h3> -->
-        <div class="row">
-            <div class="col-sm">
-                <h3 class="text-center text-uppercase fw-bold">Sửa thông tin tác giả</h3>
-                <form action="process_add_c.php" method="post">
-                <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text" id="lblCatId">Mã tác giả</span>
-                        <input type="text" class="form-control" name="ma_tgia" readonly value="<?php echo $author['ma_tgia']; ?>">
-                    </div>
-
-                    <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text" id="lblCatName">Tên tác giả</span>
-                        <input type="text" class="form-control" name="ten_tgia" value = "<?php echo $author['ten_tgia']; ?>">
-                    </div>
-
-                    <form action="upload.php" method="POST" enctype="multipart/form-data">
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="lblCatName">Hình tác giả</span>
-                    <input type="file" class="form-control" name="hinh_tgia" id="fileToUpload" value="<?php echo $author['hinh_tgia']; ?>">
-                </div>
-  
-
-                    <div class="form-group  float-end ">
-                        <input type="submit" value="Lưu lại" class="btn btn-success">
-                        <a href="category.php" class="btn btn-warning ">Quay lại</a>
-                    </div>
-                </form>
+        <h3 class="text-center text-uppercase fw-bold">Sửa thông tin tác giả</h3>
+        <form action="" method="post">
+            <div class="input-group mt-3 mb-3">
+                <span class="input-group-text" id="lblAuthorId">Mã tác giả</span>
+                <input type="text" class="form-control" name="ma_tgia" readonly value="<?php echo $author['ma_tgia']; ?>">
             </div>
-        </div>
+
+            <div class="input-group mt-3 mb-3">
+                <span class="input-group-text" id="lblAuthorName">Tên tác giả</span>
+                <input type="text" class="form-control" name="ten_tgia" value="<?php echo $author['ten_tgia']; ?>">
+            </div>
+
+            <div class="input-group mt-3 mb-3">
+             <span class="input-group-text" id="lblImage">Hình ảnh</span>
+             <input type="file" class="form-control" name="hinh_tgia" id="fileToUpload">
+         </div>
+
+            <div class="form-group float-end">
+                <input type="submit" value="Lưu lại" class="btn btn-success">
+                <a href="author.php" class="btn btn-warning">Quay lại</a>
+            </div>
+        </form>
     </main>
-    <footer class="bg-white d-flex justify-content-center align-items-center border-top border-secondary  border-2" style="height:80px">
+    <footer class="bg-white d-flex justify-content-center align-items-center border-top border-secondary border-2" style="height:80px">
         <h4 class="text-center text-uppercase fw-bold">TLU's music garden</h4>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+<?php
+// Đóng kết nối
+$conn->close();
+?>
