@@ -54,8 +54,8 @@ function handle_exception($e)
 // Handle fatal errors
 function handle_shutdown()
 {
-    $error = error_get_last();            // Check for error in script
-    if ($error !== null) {                // If there was an error next line throws exception
+    $error = error_get_last();            
+    if ($error !== null) {               
         $e = new ErrorException($error['message'], 0, $error['type'], $error['file'], $error['line']);
         handle_exception($e);             // Call exception handler
     }

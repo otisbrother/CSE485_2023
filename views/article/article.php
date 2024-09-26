@@ -8,7 +8,7 @@ require './view/includes/header.php';
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">Mã bài viết</th>
                         <th scope="col">Tiêu đề</th>
                         <th scope="col">Tên bài hát</th>
                         <th scope="col">Tên thể loại</th>
